@@ -41,6 +41,7 @@ jobs:
       run: |
         ./ketch app create github-actions-demo --pool test
         ./ketch app deploy github-actions-demo --image ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:pr-${{ github.event.pull_request.number }}
+        sleep 1
         kubectl --namespace ketch-test rollout status deployment github-actions-demo-web-1
     - name: Test
       run: |
