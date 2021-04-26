@@ -1,4 +1,4 @@
-curl -o ketch https://github.com/shipa-corp/ketch/releases/download/v0.2.1/ketch-linux-amd64
+curl -Lo ketch https://github.com/shipa-corp/ketch/releases/download/v0.2.1/ketch-linux-amd64
 
 chmod +x ketch
 
