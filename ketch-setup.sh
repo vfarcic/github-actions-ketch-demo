@@ -28,4 +28,4 @@ kubectl apply --filename https://github.com/shipa-corp/ketch/releases/download/v
 
 kubectl --namespace ketch-system rollout status deployment ketch-controller-manager
 
-sleep 1
+sleep 3
