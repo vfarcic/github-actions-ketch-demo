@@ -33,8 +33,14 @@ jobs:
         cluster-name: test
         args: >-
           --config k3d.yaml
-    - name: Setup Ketch
-      run: ./ketch-setup.sh
+    - name: Setup cluster
+      run: |
+        ./ketch-setup.sh
+        ketch pool add test
+    - name: Deploy the release
+      run: |
+        ketch app create github-actions-demo --pool test
+        ketch app deploy github-actions-demo --image ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:pr-${{ github.event.pull_request.number }}
     - name: Test
       run: |
         echo "I was too lazy to write tests. If I wasn't, I would run them inside the k3d cluster created in the previous step"
