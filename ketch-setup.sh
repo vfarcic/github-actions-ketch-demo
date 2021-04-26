@@ -27,3 +27,5 @@ spec:
 kubectl apply --filename https://github.com/shipa-corp/ketch/releases/download/v0.2.0/ketch-controller.yaml
 
 kubectl --namespace ketch-system rollout status deployment ketch-controller-manager
+
+sleep 10
