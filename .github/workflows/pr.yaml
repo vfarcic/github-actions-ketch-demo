@@ -36,11 +36,11 @@ jobs:
     - name: Setup cluster
       run: |
         ./ketch-setup.sh
-        ketch pool add test
+        ./ketch pool add test
     - name: Deploy the release
       run: |
-        ketch app create github-actions-demo --pool test
-        ketch app deploy github-actions-demo --image ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:pr-${{ github.event.pull_request.number }}
+        ./ketch app create github-actions-demo --pool test
+        ./ketch app deploy github-actions-demo --image ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:pr-${{ github.event.pull_request.number }}
     - name: Test
       run: |
         kubectl --namespace ketch-test run test --image alpine -it --rm -- apk add --update curl && curl github-actions-demo-web-1

@@ -1,4 +1,6 @@
-curl -s https://raw.githubusercontent.com/shipa-corp/ketch/main/install.sh | bash
+curl -o ketch https://github.com/shipa-corp/ketch/releases/download/v0.2.1/ketch-linux-amd64
+
+chmod +x ketch
 
 kubectl apply --filename https://github.com/jetstack/cert-manager/releases/download/v1.0.3/cert-manager.yaml --validate=false
 
