@@ -33,12 +33,17 @@ jobs:
         cluster-name: test
         args: >-
           --config k3d.yaml
-    - name: Deploy the app
+    - name: Setup cluster
       run: |
-        cd kustomize/overlays/preview
-        kustomize edit set image ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo=${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:pr-${{ github.event.pull_request.number }}
-        kustomize build | kubectl apply --filename -
-        kubectl rollout status deployment github-actions-demo
+        ./ketch-setup.sh
+        ./ketch pool add test
+    - name: Deploy the release
+      run: |
+        ./ketch app create github-actions-demo --pool test
+        ./ketch app deploy github-actions-demo --image ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:pr-${{ github.event.pull_request.number }}
+        sleep 3
+        kubectl --namespace ketch-test rollout status deployment github-actions-demo-web-1
     - name: Test
       run: |
-        echo "I was too lazy to write tests. If I wasn't, I would run them inside the k3d cluster created in the previous step"
+        kubectl --namespace ketch-test run test --image alpine -i --rm -- sh -c "apk add --update curl && curl github-actions-demo-web-1"
+
