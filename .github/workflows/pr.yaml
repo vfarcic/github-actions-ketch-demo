@@ -43,5 +43,5 @@ jobs:
         ./ketch app deploy github-actions-demo --image ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:pr-${{ github.event.pull_request.number }}
     - name: Test
       run: |
-        kubectl --namespace ketch-test run test --image alpine -it --rm -- apk add --update curl && curl github-actions-demo-web-1
+        kubectl --namespace ketch-test run test --image alpine -i --rm -- sh -c "apk add --update curl && curl github-actions-demo-web-1"
 
