@@ -45,5 +45,5 @@ jobs:
         kubectl --namespace ketch-test rollout status deployment github-actions-demo-web-1
     - name: Test
       run: |
-        kubectl --namespace ketch-test run test --image alpine -i --rm -- sh -c "apk add --update curl && curl github-actions-demo-web-1"
+        kubectl --namespace ketch-test run test --image alpine -i --restart -- sh -c "apk add --update curl && curl github-actions-demo-web-1"
 
